@@ -66,3 +66,4 @@ jobs:
           docker run --rm ${{ secrets.DOCKERHUB_USERNAME }}/devops-docker:latest aws --version
           docker run --rm ${{ secrets.DOCKERHUB_USERNAME }}/devops-docker:latest terraform --version
           docker run --rm ${{ secrets.DOCKERHUB_USERNAME }}/devops-docker:latest helm version
+          docker run --rm ${{ secrets.DOCKERHUB_USERNAME }}/devops-docker:latest kubectl version --client

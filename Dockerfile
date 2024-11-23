@@ -43,10 +43,10 @@ RUN curl -fsSL https://get.helm.sh/helm-v${HELM_VERSION}-linux-${TARGETARCH}.tar
     rm -rf linux-${TARGETARCH} && \
     helm version
 
-# # Install kubectl
-# RUN curl -LO "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/${TARGETARCH}/kubectl" && \
-#     chmod +x kubectl && mv kubectl /usr/local/bin/ && \
-#     kubectl version --client
+# Install kubectl
+RUN curl -LO "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/${TARGETARCH}/kubectl" && \
+    chmod +x kubectl && mv kubectl /usr/local/bin/ && \
+    kubectl version --client
 
 # # Default entrypoint
 # ENTRYPOINT ["/bin/bash"]
