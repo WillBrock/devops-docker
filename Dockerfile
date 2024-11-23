@@ -37,11 +37,11 @@ RUN apk add --update --virtual .deps --no-cache gnupg && \
     rm -f /tmp/${PRODUCT}_${TERRAFORM_VERSION}_linux_${TARGETARCH}.zip ${PRODUCT}_${TERRAFORM_VERSION}_SHA256SUMS ${TERRAFORM_VERSION}/${PRODUCT}_${TERRAFORM_VERSION}_SHA256SUMS.sig && \
     apk del .deps
 
-# # Install Helm
-# RUN curl -fsSL https://get.helm.sh/helm-v${HELM_VERSION}-linux-${TARGETARCH}.tar.gz | tar -xz && \
-#     mv linux-${TARGETARCH}/helm /usr/local/bin/helm && \
-#     rm -rf linux-${TARGETARCH} && \
-#     helm version
+# Install Helm
+RUN curl -fsSL https://get.helm.sh/helm-v${HELM_VERSION}-linux-${TARGETARCH}.tar.gz | tar -xz && \
+    mv linux-${TARGETARCH}/helm /usr/local/bin/helm && \
+    rm -rf linux-${TARGETARCH} && \
+    helm version
 
 # # Install kubectl
 # RUN curl -LO "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/${TARGETARCH}/kubectl" && \
