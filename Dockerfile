@@ -26,15 +26,15 @@ RUN apk add --no-cache \
 # Install Terraform
 RUN apk add --update --virtual .deps --no-cache gnupg && \
     cd /tmp && \
-    wget https://releases.hashicorp.com/${PRODUCT}/${TERRAFORM_VERSION}/${PRODUCT}_${TERRAFORM_VERSION}_linux_${TARGETARCH}}.zip && \
+    wget https://releases.hashicorp.com/${PRODUCT}/${TERRAFORM_VERSION}/${PRODUCT}_${TERRAFORM_VERSION}_linux_${TARGETARCH}.zip && \
     wget https://releases.hashicorp.com/${PRODUCT}/${TERRAFORM_VERSION}/${PRODUCT}_${TERRAFORM_VERSION}_SHA256SUMS && \
     wget https://releases.hashicorp.com/${PRODUCT}/${TERRAFORM_VERSION}/${PRODUCT}_${TERRAFORM_VERSION}_SHA256SUMS.sig && \
     wget -qO- https://www.hashicorp.com/.well-known/pgp-key.txt | gpg --import && \
     gpg --verify ${PRODUCT}_${TERRAFORM_VERSION}_SHA256SUMS.sig ${PRODUCT}_${TERRAFORM_VERSION}_SHA256SUMS && \
-    grep ${PRODUCT}_${TERRAFORM_VERSION}_linux_amd64.zip ${PRODUCT}_${TERRAFORM_VERSION}_SHA256SUMS | sha256sum -c && \
-    unzip /tmp/${PRODUCT}_${TERRAFORM_VERSION}_linux_amd64.zip -d /tmp && \
+    grep ${PRODUCT}_${TERRAFORM_VERSION}_linux_${TARGETARCH}.zip ${PRODUCT}_${TERRAFORM_VERSION}_SHA256SUMS | sha256sum -c && \
+    unzip /tmp/${PRODUCT}_${TERRAFORM_VERSION}_linux_${TARGETARCH}.zip -d /tmp && \
     mv /tmp/${PRODUCT} /usr/local/bin/${PRODUCT} && \
-    rm -f /tmp/${PRODUCT}_${TERRAFORM_VERSION}_linux_amd64.zip ${PRODUCT}_${TERRAFORM_VERSION}_SHA256SUMS ${TERRAFORM_VERSION}/${PRODUCT}_${TERRAFORM_VERSION}_SHA256SUMS.sig && \
+    rm -f /tmp/${PRODUCT}_${TERRAFORM_VERSION}_linux_${TARGETARCH}.zip ${PRODUCT}_${TERRAFORM_VERSION}_SHA256SUMS ${TERRAFORM_VERSION}/${PRODUCT}_${TERRAFORM_VERSION}_SHA256SUMS.sig && \
     apk del .deps
 
 # Install Helm
