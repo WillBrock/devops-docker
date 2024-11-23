@@ -22,6 +22,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Lint Dockerfile
+        uses: hadolint/hadolint@v3
+        with:
+          dockerfile: Dockerfile
+
       # Generate Docker image metadata
       - name: Docker meta
         id: meta
