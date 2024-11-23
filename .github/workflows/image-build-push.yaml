@@ -53,10 +53,10 @@ jobs:
           context: .
           push: ${{ github.event_name != 'pull_request' }}
           platforms: linux/amd64,linux/arm64
-          build-args: |
-            TERRAFORM_VERSION=${{ env.TERRAFORM_VERSION }}
-            KUBE_VERSION=${{ env.KUBE_VERSION }}
-            HELM_VERSION=${{ env.HELM_VERSION }}
-            AWSCLI_VERSION=${{ env.AWSCLI_VERSION }}
+          # build-args: |
+          #   TERRAFORM_VERSION=${{ env.TERRAFORM_VERSION }}
+          #   KUBE_VERSION=${{ env.KUBE_VERSION }}
+          #   HELM_VERSION=${{ env.HELM_VERSION }}
+          #   AWSCLI_VERSION=${{ env.AWSCLI_VERSION }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
