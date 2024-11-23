@@ -27,10 +27,10 @@ RUN apk add --no-cache \
 # Install Terraform
 RUN apk add --update --virtual .deps --no-cache gnupg && \
     cd /tmp && \
-    curl https://releases.hashicorp.com/${PRODUCT}/${TERRAFORM_VERSION}/${PRODUCT}_${TERRAFORM_VERSION}_linux_${TARGETARCH}.zip && \
-    curl https://releases.hashicorp.com/${PRODUCT}/${TERRAFORM_VERSION}/${PRODUCT}_${TERRAFORM_VERSION}_SHA256SUMS && \
-    curl https://releases.hashicorp.com/${PRODUCT}/${TERRAFORM_VERSION}/${PRODUCT}_${TERRAFORM_VERSION}_SHA256SUMS.sig && \
-    curl -qO- https://www.hashicorp.com/.well-known/pgp-key.txt | gpg --import && \
+    wget https://releases.hashicorp.com/${PRODUCT}/${TERRAFORM_VERSION}/${PRODUCT}_${TERRAFORM_VERSION}_linux_${TARGETARCH}.zip && \
+    wget https://releases.hashicorp.com/${PRODUCT}/${TERRAFORM_VERSION}/${PRODUCT}_${TERRAFORM_VERSION}_SHA256SUMS && \
+    wget https://releases.hashicorp.com/${PRODUCT}/${TERRAFORM_VERSION}/${PRODUCT}_${TERRAFORM_VERSION}_SHA256SUMS.sig && \
+    wget -qO- https://www.hashicorp.com/.well-known/pgp-key.txt | gpg --import && \
     gpg --verify ${PRODUCT}_${TERRAFORM_VERSION}_SHA256SUMS.sig ${PRODUCT}_${TERRAFORM_VERSION}_SHA256SUMS && \
     grep ${PRODUCT}_${TERRAFORM_VERSION}_linux_${TARGETARCH}.zip ${PRODUCT}_${TERRAFORM_VERSION}_SHA256SUMS | sha256sum -c && \
     unzip /tmp/${PRODUCT}_${TERRAFORM_VERSION}_linux_${TARGETARCH}.zip -d /tmp && \
