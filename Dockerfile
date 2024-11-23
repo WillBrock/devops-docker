@@ -16,6 +16,7 @@ RUN apk add --no-cache \
     tar \
     gzip \
     binutils \
+	git \
     libc6-compat \
     ca-certificates \
     jq \
