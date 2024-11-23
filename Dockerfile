@@ -1,6 +1,7 @@
 FROM alpine:latest
 
 # Arguments
+ARG TARGETARCH
 ARG PRODUCT=terraform
 ARG TERRAFORM_VERSION=1.9.8
 ARG KUBECTL_VERSION=v1.31.3
@@ -25,7 +26,7 @@ RUN apk add --no-cache \
 # Install Terraform
 RUN apk add --update --virtual .deps --no-cache gnupg && \
     cd /tmp && \
-    wget https://releases.hashicorp.com/${PRODUCT}/${TERRAFORM_VERSION}/${PRODUCT}_${TERRAFORM_VERSION}_linux_amd64.zip && \
+    wget https://releases.hashicorp.com/${PRODUCT}/${TERRAFORM_VERSION}/${PRODUCT}_${TERRAFORM_VERSION}_linux_${TARGETARCH}}.zip && \
     wget https://releases.hashicorp.com/${PRODUCT}/${TERRAFORM_VERSION}/${PRODUCT}_${TERRAFORM_VERSION}_SHA256SUMS && \
     wget https://releases.hashicorp.com/${PRODUCT}/${TERRAFORM_VERSION}/${PRODUCT}_${TERRAFORM_VERSION}_SHA256SUMS.sig && \
     wget -qO- https://www.hashicorp.com/.well-known/pgp-key.txt | gpg --import && \
@@ -37,13 +38,13 @@ RUN apk add --update --virtual .deps --no-cache gnupg && \
     apk del .deps
 
 # Install Helm
-RUN curl -fsSL https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz | tar -xz && \
-    mv linux-amd64/helm /usr/local/bin/helm && \
-    rm -rf linux-amd64 && \
+RUN curl -fsSL https://get.helm.sh/helm-v${HELM_VERSION}-linux-${TARGETARCH}.tar.gz | tar -xz && \
+    mv linux-${TARGETARCH}/helm /usr/local/bin/helm && \
+    rm -rf linux-${TARGETARCH} && \
     helm version
 
 # Install kubectl
-RUN curl -LO "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl" && \
+RUN curl -LO "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/${TARGETARCH}/kubectl" && \
     chmod +x kubectl && mv kubectl /usr/local/bin/ && \
     kubectl version --client
 
