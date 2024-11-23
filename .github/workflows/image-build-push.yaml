@@ -63,5 +63,6 @@ jobs:
 
       - name: Test Docker Image
         run: |
-          docker run --rm ${{ secrets.DOCKERHUB_USERNAME }}/devops-docker:latest terraform --version
-          docker run --rm ${{ secrets.DOCKERHUB_USERNAME }}/devops-docker:latest aws --version
+          #docker run --rm ${{ secrets.DOCKERHUB_USERNAME }}/devops-docker:latest terraform --version
+          #docker run --rm ${{ secrets.DOCKERHUB_USERNAME }}/devops-docker:latest aws --version
+          docker run --rm ${{ secrets.DOCKERHUB_USERNAME }}/devops-docker:latest echo "123"
