@@ -60,3 +60,8 @@ jobs:
           #   AWSCLI_VERSION=${{ env.AWSCLI_VERSION }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Test Docker Image
+        run: |
+          docker run --rm ${{ secrets.DOCKERHUB_USERNAME }}/devops-docker:latest terraform --version
+          docker run --rm ${{ secrets.DOCKERHUB_USERNAME }}/devops-docker:latest aws --version
