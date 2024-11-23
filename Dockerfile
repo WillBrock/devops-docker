@@ -1,6 +1,7 @@
 FROM alpine:latest
 
 # Arguments
+ARG PRODUCT=terraform
 ARG TERRAFORM_VERSION=1.9.8
 ARG KUBECTL_VERSION=v1.31.3
 ARG HELM_VERSION=3.16.3
@@ -22,10 +23,18 @@ RUN apk add --no-cache \
     && rm -rf /var/cache/apk/*
 
 # Install Terraform
-RUN curl -fsSL https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip -o terraform.zip && \
-    unzip terraform.zip -d /usr/local/bin && \
-    rm terraform.zip && \
-    terraform --version
+RUN apk add --update --virtual .deps --no-cache gnupg && \
+    cd /tmp && \
+    wget https://releases.hashicorp.com/${PRODUCT}/${TERRAFORM_VERSION}/${PRODUCT}_${TERRAFORM_VERSION}_linux_amd64.zip && \
+    wget https://releases.hashicorp.com/${PRODUCT}/${TERRAFORM_VERSION}/${PRODUCT}_${TERRAFORM_VERSION}_SHA256SUMS && \
+    wget https://releases.hashicorp.com/${PRODUCT}/${TERRAFORM_VERSION}/${PRODUCT}_${TERRAFORM_VERSION}_SHA256SUMS.sig && \
+    wget -qO- https://www.hashicorp.com/.well-known/pgp-key.txt | gpg --import && \
+    gpg --verify ${PRODUCT}_${TERRAFORM_VERSION}_SHA256SUMS.sig ${PRODUCT}_${TERRAFORM_VERSION}_SHA256SUMS && \
+    grep ${PRODUCT}_${TERRAFORM_VERSION}_linux_amd64.zip ${PRODUCT}_${TERRAFORM_VERSION}_SHA256SUMS | sha256sum -c && \
+    unzip /tmp/${PRODUCT}_${TERRAFORM_VERSION}_linux_amd64.zip -d /tmp && \
+    mv /tmp/${PRODUCT} /usr/local/bin/${PRODUCT} && \
+    rm -f /tmp/${PRODUCT}_${TERRAFORM_VERSION}_linux_amd64.zip ${PRODUCT}_${TERRAFORM_VERSION}_SHA256SUMS ${TERRAFORM_VERSION}/${PRODUCT}_${TERRAFORM_VERSION}_SHA256SUMS.sig && \
+    apk del .deps
 
 # Install Helm
 RUN curl -fsSL https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz | tar -xz && \
