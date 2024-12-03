@@ -22,6 +22,7 @@ RUN apk add --no-cache \
     jq \
     openssl \
     aws-cli \
+	rsync \
     && rm -rf /var/cache/apk/*
 
 # Install Terraform
