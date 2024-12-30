@@ -19,6 +19,7 @@ RUN apk add --no-cache \
 	git \
     libc6-compat \
     ca-certificates \
+    openssh \
     jq \
     openssl \
     aws-cli \
