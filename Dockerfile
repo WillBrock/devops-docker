@@ -16,14 +16,15 @@ RUN apk add --no-cache \
     tar \
     gzip \
     binutils \
-	git \
+    git \
     libc6-compat \
     ca-certificates \
     openssh \
     jq \
     openssl \
     aws-cli \
-	rsync \
+    rsync \
+    coreutils \
     && rm -rf /var/cache/apk/*
 
 # Install Terraform
