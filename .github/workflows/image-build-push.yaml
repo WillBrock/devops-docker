@@ -36,6 +36,9 @@ jobs:
             ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}
           tags: |
             type=raw,value=latest
+            type=sha,value=${{ github.sha }}
+            type=ref,event=branch,pattern=main
+            type=ref,event=branch,pattern={{branch}}
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}
             type=semver,pattern={{major}}.{{minor}}
