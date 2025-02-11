@@ -25,7 +25,7 @@ RUN apk add --no-cache \
     aws-cli \
     rsync \
     coreutils \
-    tzdata
+    tzdata \
     && rm -rf /var/cache/apk/*
 
 # Install Terraform
