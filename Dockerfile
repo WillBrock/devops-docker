@@ -26,6 +26,7 @@ RUN apk add --no-cache \
     rsync \
     coreutils \
     tzdata \
+    docker-cli \
     && rm -rf /var/cache/apk/*
 
 # Install Terraform
